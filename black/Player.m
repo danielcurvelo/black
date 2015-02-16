@@ -10,6 +10,17 @@
 
 @implementation Player
 
+- (id)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        self.name = dictionary[nameKey];
+        self.score = dictionary[scoreKey];
+        self.stepper = dictionary[stepperKey];
+    }
+    return self;
+}
+
 - (NSDictionary *)playerDictionary
 {
     NSMutableDictionary *dictionaryOfPlayers = [NSMutableDictionary new];
@@ -25,15 +36,5 @@
     return dictionaryOfPlayers;
 }
 
-- (id)initWithDictionary:(NSDictionary *)dictionary
-{
-    self = [super init];
-    if (self) {
-        self.name = dictionary[nameKey];
-        self.score = dictionary[scoreKey];
-        self.stepper = dictionary[stepperKey];
-    }
-    return self;
-}
 
 @end

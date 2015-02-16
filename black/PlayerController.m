@@ -60,7 +60,7 @@
         Player *player = [[Player alloc] initWithDictionary:child];
         [arrayWithinFather addObject:player];
     }
-    self.arrayOfPlayers = arrayWithinFather;
+//    self.arrayOfPlayers = arrayWithinFather;
 }
 
 - (void)synchronize

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITextField *playerTextField;
 @property (nonatomic, strong) UILabel *playerScore;
 @property (nonatomic, strong) UIStepper *playerStepper;
+@property (nonatomic, assign) NSInteger index;
 
 @property (nonatomic, strong) Player *player;
 

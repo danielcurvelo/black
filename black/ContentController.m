@@ -17,8 +17,6 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[ContentController alloc] init];
         
-        
-        sharedInstance.content = [ViewController new];
     });
     return sharedInstance;
 }

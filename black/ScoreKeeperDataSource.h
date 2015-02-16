@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+static NSString * const CellIdentifier = @"cell";
+
 @interface ScoreKeeperDataSource : NSObject <UITableViewDataSource>
 
 - (NSIndexPath *)addNewCell:(UITableView *)tableView;
+-(void)registerTableView:(UITableView *)tableView;
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ScoreKeeperTableViewCell.h"
+#import "PlayerController.h"
 
 @implementation ScoreKeeperTableViewCell
 
@@ -30,6 +31,9 @@
     self.playerScore.tintColor = [UIColor blackColor];
     [self.playerStepper addTarget:self action:@selector(changeScore:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.playerStepper];
+
+    Player *player = [PlayerController sharedInstance].arrayOfPlayers[self.index];
+    self.textLabel.text = player.name;
     
     return self;
 }

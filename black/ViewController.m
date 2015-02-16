@@ -28,10 +28,12 @@
 @implementation ViewController
 
 - (void)updateWithEntry:(Player *)player {
-    self.player = player;
     
-    self.textField.text = player.name;
-    self.score.text = player.score;
+    self.textField.text = self.player.name;
+    self.score.text = self.player.score;
+    
+    NSLog(@"%lu", (unsigned long)[PlayerController sharedInstance].arrayOfPlayers.count);
+    
 }
 
 - (void)viewDidLoad {
@@ -46,34 +48,31 @@
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    self.tableView.backgroundColor =  [UIColor clearColor];
-//    self.parentViewController.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.1 blue:0.9 alpha:0.1];
     [self.view addSubview:self.tableView];
     
     self.SDataSource = [ScoreKeeperDataSource new];
     self.tableView.dataSource = self.SDataSource;
-    [self.tableView registerClass:[ScoreKeeperTableViewCell class] forCellReuseIdentifier:@"scoreK"];
+    [self.SDataSource registerTableView:self.tableView];
+//    [self.tableView registerClass:[ScoreKeeperTableViewCell class] forCellReuseIdentifier:@"scoreK"];
     
     UIBarButtonItem *addPlayers = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addPlayers)];
     self.navigationItem.rightBarButtonItem = addPlayers;
     
     UIBarButtonItem *savePlayers = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(savePlayers:)];
     self.navigationItem.leftBarButtonItem = savePlayers;
+    
 }
 
 - (void)addPlayers
 {
     ScoreKeeperTableViewCell *cell = [ScoreKeeperTableViewCell new];
     Player *player = [[Player alloc] initWithDictionary:@{nameKey:cell.playerTextField.text, scoreKey: cell.playerScore.text, stepperKey: cell.playerStepper}];
-    player.name = cell.playerTextField.text;
-    player.score = cell.playerScore.text;
-    player.stepper = cell.playerStepper;
+//    player.name = cell.playerTextField.text;
+//    player.score = cell.playerScore.text;
+//    player.stepper = cell.playerStepper;
     
-//    NSIndexPath *indexPath = [self.SDataSource addNewCell:self.tableView];
-//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     [[PlayerController sharedInstance] addPlayer:player];
-    
-    NSLog(@"%lu", (unsigned long)[PlayerController sharedInstance].arrayOfPlayers.count);
+    [self.tableView reloadData];
 }
 
 - (void)savePlayers:(id)sender
@@ -85,8 +84,8 @@
     }
     else {
         [[PlayerController sharedInstance] replacePlayer:self.player withSavedPlayer:player];
-        NSLog(@"%lu", (unsigned long)[PlayerController sharedInstance].arrayOfPlayers.count);
     }
+    NSLog(@"%@", [[PlayerController sharedInstance].arrayOfPlayers lastObject]);
 
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
